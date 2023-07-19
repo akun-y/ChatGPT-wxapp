@@ -78,7 +78,8 @@
             var e = {
                 data: function () {
                     return {
-                        apiurl: "http://127.0.0.1:1338",
+                        //apiurl: "https://bridge.mfull.cn",
+                        apiurl: "http://192.168.15.223:1338",
                         apisucc: !1,
                         apibut: "需要先进行API配置才能使用",
                         sentext: "先配置api",
@@ -101,7 +102,7 @@
                             },
                             {
                                 "role": "assistant",
-                                "content": "Hello, I am ChatGPT. How can I help you today?"
+                                "content": "Hello, I am iKnowM. How can I help you today?"
                             },
                         ],
                         userId:null

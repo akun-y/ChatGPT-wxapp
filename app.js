@@ -3,7 +3,7 @@ require('./common/vendor.js')
 require('./common/main.js')
 App({
   globalData: {
-    id: null
+    id: null,
   },
   onLaunch() {
     // 展示本地存储能力

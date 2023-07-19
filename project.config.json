@@ -19,12 +19,12 @@
         "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
-    "appid": "wxebd22a5c5dffee7a",
     "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",
         "tabSize": 4
     },
+    "appid": "wxf795e8204955e3db",
     "libVersion": "2.30.0",
     "packOptions": {
         "ignore": [],

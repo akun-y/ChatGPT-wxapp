@@ -209,6 +209,27 @@
                             }
                         })
                     },
+                    myFilter: function (dataString) {
+                      const replaceRules = [{
+                          find: 'openai',
+                          replace: 'iKnowModel'
+                        },
+                        {
+                          find: 'gpt-3',
+                          replace: 'Model-A'
+                        }
+                      ];
+                    
+                      for (let rule of replaceRules) {
+                        let find = rule.find;
+                        let replace = rule.replace;
+                        // 使用正则表达式做全局替换
+                        let reg = new RegExp(find, 'gi');
+                        dataString = dataString.replace(reg, replace);
+                      }
+                    
+                      return dataString;
+                    },
                     sendMsg: function () {
                         var that = this;
                         if ("" == this.msg) return 0;
@@ -240,7 +261,6 @@
                                 }
                             }
                         };
-
                         this.msg = "";
                         console.log("send msg:", reqBody);
                         t.request({
@@ -251,7 +271,9 @@
                             success: function (resp) {
                                 if (200 == resp.statusCode) {
                                     console.log("resp----:", resp);
-                                    var data = resp.data;
+                                    var data =that.myFilter(resp.data);
+                                   // var data = resp.data;
+
                                     that.msgList.push({ msg: data, my: !1 });
                                     that.msgHistory.push({ "role": "user", "content": sendMessage });
                                     that.msgHistory.push({ "role": "assistant", "content": data });

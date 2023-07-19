@@ -103,7 +103,8 @@
                                 "role": "assistant",
                                 "content": "Hello, I am ChatGPT. How can I help you today?"
                             },
-                        ]
+                        ],
+                        userId:null
 
                     }
                 },
@@ -115,18 +116,19 @@
                             //设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
                             menus: ["shareAppMessage", "shareTimeline"]
                         });
-                        this.apibut = "连接成功",
-                            this.apisucc = !0,
-                            this.sentext = "发送",
-                            this.msgLoad = !1,
-                            this.setsklocal(this.api),
-                            this.api = "value222",
-                            this.apiset(),
-                            this.apibut = "连接成功",
-                            this.apisucc = !0,
-                            this.sentext = "发送",
-                            this.msgLoad = !1,
-                            this.setsklocal(this.api)
+                        this.apibut = "连接成功";
+                        this.apisucc = !0;
+                        this.sentext = "发送";
+                        this.msgLoad = !1;
+                        this.setsklocal(this.api);
+                        this.api = "检测服务状态";
+                        this.apiset();
+                        this.apibut = "连接成功";
+                        this.apisucc = !0;
+                        this.sentext = "发送";
+                        this.msgLoad = !1;
+                        this.setsklocal(this.api);
+                       
                     } catch (e) {
                         console.error(e)
                     }
@@ -155,17 +157,24 @@
                     openpop: function () {
                         this.$refs.popup.open("center")
                     },
+                    getUserId:function (){
+                        var id = this.userId
+                        if(!id || id.length<12) this.userId = getApp().globalData.id
+                        console.log("user id:", id)
+                        return id
+                    },
                     apiset: function () {
+
                         var that = this;
                         this.$refs.popup.close("center"),
                             this.apibut = "api检测中";
                         var e = {
-                            "conversation_id": "8e29c169-b4ed-0251-de07-189671c922c",
+                            "conversation_id": this.getUserId(),
                             "action": "_ask",
                             "model": "gpt-3.5-turbo-16k-0613",
                             "jailbreak": "default",
                             "meta": {
-                                "id": "7257006712276607261",
+                                "id": this.getUserId(),
                                 "content": {
                                     "conversation": [
                                     ],
@@ -211,12 +220,12 @@
                         this.msgLoad = !0;
 
                         var reqBody = {
-                            "conversation_id": "8e29c169-b4ed-0251-de07-189671c922c",
+                            "conversation_id": this.getUserId(),
                             "action": "_ask",
                             "model": "gpt-3.5-turbo-16k-0613",
                             "jailbreak": "default",
                             "meta": {
-                                "id": "7257006712276607261",
+                                "id": this.getUserId(),
                                 "content": {
                                     "conversation": this.msgHistory,
                                     "internet_access": true,

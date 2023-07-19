@@ -1,84 +1,84 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/index/index"], {
-    "15a1": function(t, s, e) {
+    "15a1": function (t, s, e) {
         "use strict";
-        e.d(s, "b", (function() {
+        e.d(s, "b", (function () {
             return n
         })),
-        e.d(s, "c", (function() {
-            return a
-        })),
-        e.d(s, "a", (function() {
-            return i
-        }));
+            e.d(s, "c", (function () {
+                return a
+            })),
+            e.d(s, "a", (function () {
+                return i
+            }));
         var i = {
-            uniPopup: function() {
+            uniPopup: function () {
                 return e.e("uni_modules/uni-popup/components/uni-popup/uni-popup").then(e.bind(null, "a83a"))
             }
         },
-        n = function() {
-            var t = this.$createElement;
-            this._self._c
-        },
-        a = []
+            n = function () {
+                var t = this.$createElement;
+                this._self._c
+            },
+            a = []
     },
-    1780 : function(t, s, e) {
-        "use strict"; (function(t, s) {
+    1780: function (t, s, e) {
+        "use strict"; (function (t, s) {
             var i = e("4ea4");
             e("cbc9");
             i(e("66fd"));
             var n = i(e("58fe"));
             t.__webpack_require_UNI_MP_PLUGIN__ = e,
-            s(n.
-        default)
+                s(n.
+                    default)
         }).call(this, e("bc2e")["default"], e("543d")["createPage"])
     },
-    5345 : function(t, s, e) {},
-    "58fe": function(t, s, e) {
+    5345: function (t, s, e) { },
+    "58fe": function (t, s, e) {
         "use strict";
         e.r(s);
         var i = e("15a1"),
-        n = e("74b8");
-        for (var a in n)["default"].indexOf(a) < 0 &&
-        function(t) {
-            e.d(s, t, (function() {
-                return n[t]
-            }))
-        } (a);
+            n = e("74b8");
+        for (var a in n) ["default"].indexOf(a) < 0 &&
+            function (t) {
+                e.d(s, t, (function () {
+                    return n[t]
+                }))
+            }(a);
         e("73d6");
         var o = e("f0c5"),
-        u = Object(o["a"])(n["default"], i["b"], i["c"], !1, null, null, null, !1, i["a"], void 0);
+            u = Object(o["a"])(n["default"], i["b"], i["c"], !1, null, null, null, !1, i["a"], void 0);
         s["default"] = u.exports
     },
-    "73d6": function(t, s, e) {
+    "73d6": function (t, s, e) {
         "use strict";
         var i = e("5345"),
-        n = e.n(i);
+            n = e.n(i);
         n.a
     },
-    "74b8": function(t, s, e) {
+    "74b8": function (t, s, e) {
         "use strict";
         e.r(s);
         var i = e("f66b"),
-        n = e.n(i);
-        for (var a in i)["default"].indexOf(a) < 0 &&
-        function(t) {
-            e.d(s, t, (function() {
-                return i[t]
-            }))
-        } (a);
+            n = e.n(i);
+        for (var a in i) ["default"].indexOf(a) < 0 &&
+            function (t) {
+                e.d(s, t, (function () {
+                    return i[t]
+                }))
+            }(a);
         s["default"] = n.a
     },
-    f66b: function(t, s, e) {
-        "use strict"; (function(t) {
+    f66b: function (t, s, e) {
+        "use strict"; (function (t) {
             Object.defineProperty(s, "__esModule", {
                 value: !0
             }),
-            s.
-        default = void 0;
+                s.
+                    default = void 0;
             var e = {
-                data: function() {
+                data: function () {
                     return {
-                        apiurl: "只需要配置此处url",
+                        apiurl: "http://127.0.0.1:1338",
                         apisucc: !1,
                         apibut: "需要先进行API配置才能使用",
                         sentext: "先配置api",
@@ -92,113 +92,171 @@
                             my: !1,
                             msg: "你好呀,想问什么就问吧"
                         }],
-                        msgContent: "",
-                        msg: ""
+                        msg: "",
+
+                        msgHistory: [
+                            {
+                                "role": "user",
+                                "content": "hello"
+                            },
+                            {
+                                "role": "assistant",
+                                "content": "Hello, I am ChatGPT. How can I help you today?"
+                            },
+                        ]
+
                     }
                 },
-                onLoad: function() {
+                onLoad: function () {
                     var s = this;
                     try {
                         wx.showShareMenu({
-                            withShareTicket:true,
+                            withShareTicket: true,
                             //设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
-                            menus:["shareAppMessage","shareTimeline"]
-                        }),
+                            menus: ["shareAppMessage", "shareTimeline"]
+                        });
                         this.apibut = "连接成功",
-                        this.apisucc = !0,
-                        this.sentext = "发送",
-                        this.msgLoad = !1,
-                        this.setsklocal(this.api),
-                        value = "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",
-                        value && (console.log(value), this.api = value, this.apiset(), this.apibut = "连接成功", this.apisucc = !0, this.sentext = "发送", this.msgLoad = !1, this.setsklocal(this.api))
-                    } catch(e) {
-                        console.log(e)
+                            this.apisucc = !0,
+                            this.sentext = "发送",
+                            this.msgLoad = !1,
+                            this.setsklocal(this.api),
+                            this.api = "value222",
+                            this.apiset(),
+                            this.apibut = "连接成功",
+                            this.apisucc = !0,
+                            this.sentext = "发送",
+                            this.msgLoad = !1,
+                            this.setsklocal(this.api)
+                    } catch (e) {
+                        console.error(e)
                     }
                     t.request({
                         url: this.apiurl,
                         method: "GET",
-                        success: function(t) {
-                            console.log(t),
-                            s.apiadj = t.data
+                        success: function (t) {
+                            console.log("onLoad:", t),
+                                s.apiadj = t.data
                         }
                     })
                 },
                 methods: {
-                    setsklocal: function(s) {
+                    setsklocal: function (s) {
                         t.setStorage({
                             key: "sk",
                             data: s,
-                            success: function(t) {
-                                console.log("success", t)
+                            success: function (res) {
+                                console.log("setsklocal success:", res)
                             }
                         })
                     },
-                    clopop: function() {
+                    clopop: function () {
                         this.$refs.popup.close("center")
                     },
-                    openpop: function() {
+                    openpop: function () {
                         this.$refs.popup.open("center")
                     },
-                    apiset: function() {
-                        var s = this;
+                    apiset: function () {
+                        var that = this;
                         this.$refs.popup.close("center"),
-                        this.apibut = "api检测中";
-                        var e = JSON.stringify({
-                            msg: "你好",
-                            openaikey: this.api
-                        });
+                            this.apibut = "api检测中";
+                        var e = {
+                            "conversation_id": "8e29c169-b4ed-0251-de07-189671c922c",
+                            "action": "_ask",
+                            "model": "gpt-3.5-turbo-16k-0613",
+                            "jailbreak": "default",
+                            "meta": {
+                                "id": "7257006712276607261",
+                                "content": {
+                                    "conversation": [
+                                    ],
+                                    "internet_access": true,
+                                    "content_type": "text",
+                                    "parts": [
+                                        {
+                                            "content": "你好",
+                                            "role": "user"
+                                        }
+                                    ]
+                                }
+                            }
+                        };
                         t.request({
-                            url: this.apiurl + "/message",
+                            url: this.apiurl + "/backend-api/v2/conversation",
                             data: e,
                             method: "POST",
-                            success: function(t) {
-                                console.log("suc", t, t.data.code),
-                                200 == t.data.code ? (s.apibut = "连接成功", s.apisucc = !0, s.sentext = "发送", s.msgLoad = !1, s.setsklocal(s.api)) : s.apibut = "连接失败，请检查apikey后重试"
+                            success: function (res) {
+                                console.log("success:", res.statusCode, res);
+                                if (200 === res.statusCode) {
+                                    that.apibut = "连接成功";
+                                    that.apisucc = !0;
+                                    that.sentext = "发送";
+                                    that.msgLoad = !1;
+                                    that.setsklocal(that.api)
+                                } else {
+                                    that.apibut = "连接失败，请检查apikey后重试"
+                                }
+
                             }
                         })
                     },
-                    sendMsg: function() {
-                        var s = this;
+                    sendMsg: function () {
+                        var that = this;
                         if ("" == this.msg) return 0;
                         if (1 == this.msgLoad) return this.$u.toast("请先配置api再进行使用"),
-                        0;
-                        this.sentext = "请求中",
-                        this.msgList.push({
-                            msg: this.msg,
-                            my: !0
-                        }),
-                        this.msgContent += this.msg,
-                        console.log(this.msgContent),
-                        this.msgLoad = !0,
+                            0;
+
+                        const sendMessage = this.msg
+                        this.sentext = "请求中";
+                        this.msgList.push({ msg: sendMessage, my: !0 });
+                        this.msgLoad = !0;
+
+                        var reqBody = {
+                            "conversation_id": "8e29c169-b4ed-0251-de07-189671c922c",
+                            "action": "_ask",
+                            "model": "gpt-3.5-turbo-16k-0613",
+                            "jailbreak": "default",
+                            "meta": {
+                                "id": "7257006712276607261",
+                                "content": {
+                                    "conversation": this.msgHistory,
+                                    "internet_access": true,
+                                    "content_type": "text",
+                                    "parts": [
+                                        {
+                                            "content": sendMessage,
+                                            "role": "user"
+                                        }
+                                    ]
+                                }
+                            }
+                        };
+
                         this.msg = "";
-                        var e = JSON.stringify({
-                            msg: this.msgContent,
-                            openaikey: this.api
-                        });
+                        console.log("send msg:", reqBody);
                         t.request({
-                            url: this.apiurl + "/message",
-                            data: e,
+                            url: this.apiurl + "/backend-api/v2/conversation",
+                            data: reqBody,
                             method: "POST",
-                            success: function(t) {
-                                if (200 == t.data.code) {
-                                    console.log(e);
-                                    var e = t.data.resmsg.choices[0].message.content;
-                                    s.msgList.push({
-                                        msg: e,
-                                        my: !1
-                                    }),
-                                    s.msgContent += e + "\n",
-                                    s.msgLoad = !1,
-                                    s.sentext = "发送"
-                                } else s.apibut = "连接失败，请检查apikey后重试",
-                                s.apisucc = !1
+                            header: { 'content-type': 'application/json' },
+                            success: function (resp) {
+                                if (200 == resp.statusCode) {
+                                    console.log("resp----:", resp);
+                                    var data = resp.data;
+                                    that.msgList.push({ msg: data, my: !1 });
+                                    that.msgHistory.push({ "role": "user", "content": sendMessage });
+                                    that.msgHistory.push({ "role": "assistant", "content": data });
+                                    that.msgLoad = !1;
+                                    that.sentext = "发送";
+                                } else {
+                                    that.apibut = "连接服务器失败";
+                                    that.apisucc = !1
+                                }
                             }
                         })
                     }
                 }
             };
-            s.
-        default = e
+            s.default = e;
         }).call(this, e("543d")["default"])
     }
 },

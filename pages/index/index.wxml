@@ -1,5 +1,5 @@
-<view>
-  <scroll-view style="width:100%;" scroll-with-animation="{{true}}" scroll-y="true">
+<view class="iKnow">
+  <scroll-view style="width:100%;height: 100vh;" scroll-with-animation="{{true}}" scroll-y="true">
     <view id="okk" scroll-with-animation="{{true}}">
       <block wx:for="{{msgList}}" wx:for-item="x" wx:for-index="i" wx:key="i">
         <view class="flex-column-start">
@@ -20,8 +20,8 @@
               <view class="chat-img ">
                 <image style="height:50rpx;width:50rpx;" src="../../static/openai.png" mode="aspectFit"></image>
               </view>
-              <view class="flex" style="width:500rpx;">
-                <view class="aimsg" style="border-radius:35rpx;background-color:#f9f9f9;">
+              <view class="flex" style="width:530rpx;">
+                <view class="aimsg">
                   <text style="word-break:break-all;selectable:true;user-select:true" selectable="true" user-select="true">{{x.msg}}</text>
                 </view>
               </view>

@@ -1,3 +1,9 @@
+.iKnow {
+  /* background-image: linear-gradient(180deg, #3242A5, #831D71); */
+  background-color: #cfdddb;
+  width: 100%;
+  height: 100vh;
+}
 .userinfo {
   -webkit-animation: oneshow .8s ease 1;
   animation: oneshow .8s ease 1;
@@ -17,6 +23,7 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight:normal;
   justify-self: center;
+  color: rgb(59, 46, 5);
 }
 .aiinfo {
   display: flex;
@@ -42,7 +49,6 @@
   border-radius: 50%;
   width: 80rpx;
   height: 80rpx;
-  background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -61,6 +67,7 @@
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight:normal;
   justify-self: center;
+  color: rgb(59, 46, 5);
 }
 .flex-column-center {
   display: flex;
@@ -69,18 +76,17 @@
   align-items: center;
   position: fixed;
   bottom: 0;
-  width: 100%
-}
+  width: 100%;
+  }
 
 .inpubut {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #f9f9f9;
   width: 100%;
   height: 110rpx;
-  font-size: 40rpx
+  font-size: 40rpx;
 }
 
 .dh-input {
@@ -89,7 +95,7 @@
   border-radius: 100rpx;
   padding-left: 40rpx;
   margin-left: 20rpx;
-  background-color: #f0f0f0
+  background-color: #cccccc
 }
 
 .my-neirong-sm {

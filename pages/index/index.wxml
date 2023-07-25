@@ -5,7 +5,7 @@
         <view class="flex-column-start">
           <block wx:if="{{x.my}}">
             <view class="userinfo">
-              <view class="usr-line-info" style="margin-right:5%;">
+              <view class="usr-line-info">
                 <view class="usermsg">
                   <text style="word-break:break-all;">{{x.msg}}</text>
                 </view>

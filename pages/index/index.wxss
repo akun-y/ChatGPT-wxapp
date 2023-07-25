@@ -14,9 +14,9 @@
 }
 
 .usermsg {
+    margin-top: 16rpx;
   margin-left: 20rpx;
-  padding: 17rpx 1rpx;
-  border-radius: 35rpx
+  border-radius: 35rpx;
 }
 .usermsg text {
   font-size: 32rpx;
@@ -28,7 +28,7 @@
 .aiinfo {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:flex-start;
   margin-left: 10rpx;
   margin-top: 20rpx;
   -webkit-animation: oneshow .8s ease 1;
@@ -38,7 +38,7 @@
 .usr-line-info {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:flex-start;
   margin-left: 20rpx;
   margin-top: 20rpx;
   -webkit-animation: oneshow .8s ease 1;
@@ -78,7 +78,9 @@
   bottom: 0;
   width: 100%;
   }
-
+  .flex-column-start {
+      width: auto;
+    }
 .inpubut {
   display: flex;
   flex-direction: row;

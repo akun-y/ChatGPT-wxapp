@@ -1,4 +1,10 @@
 <!-- component/select/select.wxml -->
-<view wx:if="{{dddd}}">
-  <text>component/select/select.wxml</text>
+<view wx:if="{{listShow}}">
+  <view class="list">
+    <span class="{{item.select?'list-select':'list-item'}}"
+    wx:for="{{lists}}" wx:key="index" id="{{index}}" bindtap='selectOne'>
+    <text class="list-text" id="{{index}}">{{item.name}}</text>
+    </span>
+  </view>
+  <view class="model-content">{{listContent}}</view>
 </view>

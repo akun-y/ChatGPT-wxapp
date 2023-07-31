@@ -1,10 +1,5 @@
 <view class="iKnow">
-  <scroll-view 
-          scroll-with-animation="{{true}}"
-          scroll-y="true"
-          class="scroll-view"
-          scroll-into-view="{{curScrollIndex}}"
-  >
+  <scroll-view scroll-with-animation="{{true}}" scroll-y="true" class="scroll-view" scroll-into-view="{{curScrollIndex}}">
     <view id="okk" scroll-with-animation="{{true}}">
       <block wx:for="{{msgList}}" wx:for-item="x" wx:for-index="i" wx:key="i">
         <view class="flex-column-start">
@@ -14,7 +9,9 @@
               <view class="usr-line-info">
                 <!-- 文字 -->
                 <view class="usermsg-text">
-                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
+                  <text style="word-break:break-all;selectable:true;user-select:true">
+                    {{x.msg}}
+                  </text>
                 </view>
                 <!-- 图标 -->
                 <view class="chat-img">
@@ -33,7 +30,7 @@
               </view>
               <!-- 文字 -->
               <view class="aimsg-text" selectable="true" user-select="true" id="aimsg-{{i}}">
-                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
+                <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
               </view>
             </view>
           </block>
@@ -53,7 +50,7 @@
     <block wx:if="{{apiSuccess}}">
       <view class="inpubut">
         <!-- 左边菜单按钮 -->
-        <image class="menu-left" src="../../static/menu.png" mode="aspectFit" bindtap="selectDistrict"></image>
+        <image class="menu-left" src="../../static/menu.png" mode="aspectFit" bindtap="clickMenu"></image>
         <!-- 信息输入框 -->
         <input class="input-send" type="text" confirm-type="search" auto-focus placeholder-class="my-neirong-sm" placeholder="描述您的问题" data-event-opts="{{[['confirm',[['sendMsg',['$event']]]],['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindconfirm="inputMsgConfirm" bindinput="inputMsg" />
         <!-- 发送按钮 -->
@@ -81,18 +78,22 @@
   </uni-popup>
   <!-- <view class="container">
     <view style="position:fixed ;top:40%;box-sizing:border-box;padding:20rpx;text-align:center;width:100%">
-      <button bindtap="selectDistrict">选择城市</button>
+      <button bindtap="clickMenu">选择城市</button>
     </view>
   </view> -->
   <view class="dialog-mask " style="visibility:{{isVisible ? 'visible': 'hidden'}}" bindtap="hideMenuTap " />
   <!-- api动画方式 -->
   <view wx:if="{{menuType==1}} " class="state-menu " animation="{{animationData}}" style="visibility:{{isVisible ? 'visible': 'hidden'}}"></view>
-  <view class="dialog-mask " style="z-index:11;visibility:{{addressMenuIsShow ? 'visible': 'hidden'}}" bindtap="hideCitySelected" />
+  <view class="dialog-mask " style="z-index:11;visibility:{{menuIsShow ? 'visible': 'hidden'}}" bindtap="hideMenuMask" />
   <!-- 使用动画时不能wx:if="{{city.length>0&&isVisible}}" ，不能hidden=''属性否则无动画效果 -->
-  <view class="picker-view" animation="{{animationAddressMenu}}" style="visibility:{{addressMenuIsShow ? 'visible':'hidden'}}">
-    <view style="height:10% ;width:95%;margin-top:10rpx">
-      <text catchtap="cityCancel">取消</text>
-      <text style="float: right" catchtap="cityOk">确定</text>
+  <view class="menu-view" animation="{{animationMenu}}" style="visibility:{{menuIsShow ? 'visible':'hidden'}}">
+    <text class="menu-title">选择大模型 ：</text>
+    <view class="menu-item">
+      <select></select>
+      <view class="menu-btn-group">
+        <button catchtap="cityCancel">取消</button>
+        <button style="background-color:#6495ed;color:white" catchtap="cityOk">确定</button>
+      </view>
     </view>
   </view>
 </view>

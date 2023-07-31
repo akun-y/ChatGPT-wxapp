@@ -253,23 +253,43 @@ button[disabled] {
   position: fixed;
 }
 
-.picker-view {
+.menu-view {
   width: 100%;
   display: flex;
   z-index: 12;
-  background-color: #fff;
+  background-color: #efefef;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: fixed;
   bottom: 0rpx;
   left: 0rpx;
   height: 40vh;
-}
 
-.picker-item {
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: normal;
+  color: rgb(59, 46, 5);
+}
+.menu-title{
+  width: 100%;
+  height: 70rpx;
   line-height: 70rpx;
-  margin-left: 5rpx;
-  margin-right: 5rpx;
-  text-align: center;
+
+  padding-left: 30rpx;
+  margin-bottom: 0rpx;
+  background-color: #f28157;
+  margin-top: -16rpx;
+}
+.menu-item {
+  width: 100%;
+}
+.menu-btn-group {
+  width: 50%;
+  float:right;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10rpx;
 }

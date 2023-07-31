@@ -5,7 +5,7 @@ const model = "gpt-3.5-turbo-16k-0613";
 Page({
     data: {
         menuType: 0, begin: null, status: 1, end: null, isVisible: false,
-        animationData: {}, animationAddressMenu: {}, addressMenuIsShow: false, value: [0, 0, 0],
+        animationData: {}, animationMenu: {}, menuIsShow: false, value: [0, 0, 0],
         //--------------------------------------
         uniPopup: null,
         model,
@@ -126,13 +126,11 @@ Page({
     // 用户点击右上角分享
     onShareAppMessage: function () { },
     // 点击所在地区弹出选择框
-    selectDistrict: function (e) {
-        var that = this
-        console.log('111111111')
-        if (that.data.addressMenuIsShow) {
+    clickMenu: function (e) {
+        if (this.data.menuIsShow) {
             return
         }
-        that.startAddressAnimation(true)
+        this.startAddressAnimation(true)
     },
     // 执行动画
     startAddressAnimation: function (isShow) {
@@ -144,22 +142,20 @@ Page({
             that.animation.translateY(40 + 'vh').step()
         }
         that.setData({
-            animationAddressMenu: that.animation.export(),
-            addressMenuIsShow: isShow,
+            animationMenu: that.animation.export(),
+            menuIsShow: isShow,
         })
     },
-    // 点击地区选择取消按钮
+    // 点击menu选择取消按钮
     cityCancel: function (e) {
         this.startAddressAnimation(false)
     },
-    // 点击地区选择确定按钮
+    // 点击menu选择确定按钮
     cityOk: function (e) {
-        var that = this
-        that.startAddressAnimation(false)
-
+        this.startAddressAnimation(false)
     },
-    hideCitySelected: function (e) {
-        console.log(e)
+
+    hideMenuMask: function (e) {
         this.startAddressAnimation(false)
     },
     //原来的函数
@@ -285,15 +281,17 @@ Page({
             }
         })
     },
+    // 过滤并替换关键字
     myFilter: function (dataString) {
-        const replaceRules = [{
-            find: 'openai',
-            replace: 'iKnowModel'
-        },
-        {
-            find: 'gpt-3',
-            replace: 'Model-A'
-        }
+        const replaceRules = [
+            // {
+            //     find: 'openai',
+            //     replace: 'iKnowModel'
+            // },
+            // {
+            //     find: 'gpt-3',
+            //     replace: 'Model-A'
+            // }
         ];
 
         for (let rule of replaceRules) {

@@ -1,1 +1,29 @@
 /* component/select/select.wxss */
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 8rpx;
+
+  margin: 10rpx;
+  border: 1px solid rgb(180, 180, 180);
+}
+.list-item {
+  height: 55rpx;
+  line-height: 55rpx;
+}
+.list-select {
+  background-color: rgb(180, 180, 180);
+  height: 55rpx;
+  line-height: 55rpx;
+}
+.list-text {
+  margin:0rpx 30rpx;
+  width: 80rpx;
+}
+.model-content {
+  margin: 10rpx;
+  padding:30rpx 30rpx;
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 8rpx;
+}

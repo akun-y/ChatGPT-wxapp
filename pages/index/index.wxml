@@ -9,8 +9,7 @@
               <view class="usr-line-info">
                 <!-- 文字 -->
                 <view class="usermsg-text">
-                  <text style="word-break:break-all;selectable:true;user-select:true">
-                    {{x.msg}}
+                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}
                   </text>
                 </view>
                 <!-- 图标 -->
@@ -89,10 +88,10 @@
   <view class="menu-view" animation="{{animationMenu}}" style="visibility:{{menuIsShow ? 'visible':'hidden'}}">
     <text class="menu-title">选择大模型 ：</text>
     <view class="menu-item">
-      <select></select>
+      <select id="uniSelect"></select>
       <view class="menu-btn-group">
-        <button catchtap="cityCancel">取消</button>
-        <button style="background-color:#6495ed;color:white" catchtap="cityOk">确定</button>
+        <button catchtap="menuCancel">取消</button>
+        <button style="background-color:#6495ed;color:white" catchtap="menuOk">确定</button>
       </view>
     </view>
   </view>

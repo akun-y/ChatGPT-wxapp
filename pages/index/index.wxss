@@ -43,12 +43,14 @@
   align-items: center;
 }
 .usermsg-text {
-  width: 530rpx;
+  width: 550rpx;
   margin-top: 20rpx;
   margin-left: 20rpx;
 
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  justify-self: center;
   align-items: flex-end;
 
   font-size: 32rpx;
@@ -65,17 +67,19 @@
   /* height: 0;  */
 }
 .aimsg-text {
-  width: 520rpx;
+  width: 550rpx;
   margin-top: 20rpx;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  justify-self: center;
   align-items: flex-start;
 
   font-size: 32rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: normal;
-  justify-self: center;
+
   color: rgb(59, 46, 5);
 }
 
@@ -270,7 +274,7 @@ button[disabled] {
   font-weight: normal;
   color: rgb(59, 46, 5);
 }
-.menu-title{
+.menu-title {
   width: 100%;
   height: 70rpx;
   line-height: 70rpx;
@@ -285,7 +289,7 @@ button[disabled] {
 }
 .menu-btn-group {
   width: 50%;
-  float:right;
+  float: right;
 
   display: flex;
   flex-direction: row;

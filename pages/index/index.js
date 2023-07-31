@@ -1,15 +1,14 @@
 var animation
-//const apiurl = "https://bridge.mfull.cn";
-const apiurl = "http://192.168.15.223:1338"
-const model = "gpt-3.5-turbo-16k-0613";
 Page({
     data: {
         menuType: 0, begin: null, status: 1, end: null, isVisible: false,
         animationData: {}, animationMenu: {}, menuIsShow: false, value: [0, 0, 0],
         //--------------------------------------
         uniPopup: null,
-        model,
-        apiurl,
+        uniSelect: null,
+        model: "gpt-3.5-turbo-16k-0613",
+        //apiurl: "https://bridge.mfull.cn",
+        apiurl: "http://192.168.15.223:1338",
         apiSuccess: false,//api服务是否正常
         apiBtnText: "需要先进行API配置才能使用",
         sendBtnText: "先配置api",
@@ -110,7 +109,8 @@ Page({
     // 生命周期函数--监听页面初次渲染完成
     onReady: function () {
         this.setData({
-            uniPopup: this.selectComponent('#uniPopup')
+            uniPopup: this.selectComponent('#uniPopup'),
+            uniSelect: this.selectComponent('#uniSelect')
         })
     },
     // 生命周期函数--监听页面显示
@@ -147,12 +147,21 @@ Page({
         })
     },
     // 点击menu选择取消按钮
-    cityCancel: function (e) {
+    menuCancel: function (e) {
         this.startAddressAnimation(false)
     },
     // 点击menu选择确定按钮
-    cityOk: function (e) {
+    menuOk: function (e) {
         this.startAddressAnimation(false)
+        console.log("menuOk:", this.data.uniSelect)
+        if (this.data.uniSelect) {
+            const item = this.data.uniSelect.getSelect()
+            console.log("menuOk:", item)
+            this.setData({
+                model: item.value
+            })
+            this.hostCheck()
+        }
     },
 
     hideMenuMask: function (e) {
@@ -229,7 +238,7 @@ Page({
         var e = {
             "conversation_id": "api-test",
             "action": "_ask",
-            "model": "gpt-3.5-turbo-16k-0613",
+            "model": this.data.model,
             "jailbreak": "default",
             "meta": {
                 "id": "api-test",
@@ -332,11 +341,12 @@ Page({
             sendBtnText: "请求中",
             msgList: data.msgList,
             msgLoad: true,
+            msg: ""
         })
         var reqBody = {
             "conversation_id": this.getUserId(),
             "action": "_ask",
-            "model": "gpt-3.5-turbo-16k-0613",
+            "model": this.data.model,
             "jailbreak": "default",
             "meta": {
                 "id": this.getUserId(),

@@ -1,13 +1,16 @@
 <view class="iKnow">
-  <scroll-view style="width:100%;height: 100vh;" scroll-with-animation="{{true}}" scroll-y="true">
+  <scroll-view style="width:100%;height: 34vh;" scroll-with-animation="{{true}}" scroll-y="true">
     <view id="okk" scroll-with-animation="{{true}}">
       <block wx:for="{{msgList}}" wx:for-item="x" wx:for-index="i" wx:key="i">
         <view class="flex-column-start">
           <block wx:if="{{x.my}}">
+            <!-- 用户输入的聊天信息 -->
             <view class="userinfo">
               <view class="usr-line-info">
                 <view class="usermsg">
-                  <text style="word-break:break-all;">{{x.msg}}</text>
+                  <text style="word-break:break-all;selectable:true;user-select:true">
+                    {{x.msg}}
+                  </text>
                 </view>
                 <view class="chat-img ">
                   <image style="height:50rpx;width:50rpx;" src="../../static/avatar.png" mode="aspectFit"></image>
@@ -15,6 +18,7 @@
               </view>
             </view>
           </block>
+          <!-- 服务器应答信息 -->
           <block wx:if="{{!x.my}}">
             <view class="aiinfo">
               <view class="chat-img ">
@@ -22,7 +26,9 @@
               </view>
               <view class="flex" style="width:530rpx;">
                 <view class="aimsg">
-                  <text style="word-break:break-all;selectable:true;user-select:true" selectable="true" user-select="true">{{x.msg}}</text>
+                  <text style="word-break:break-all;selectable:true;user-select:true" selectable="true" user-select="true">
+                    {{x.msg}}
+                  </text>
                 </view>
               </view>
             </view>
@@ -33,25 +39,58 @@
     </view>
   </scroll-view>
   <view class="flex-column-center">
-    <block wx:if="{{!apisucc}}">
-      <button data-event-opts="{{[['tap',[['openpop',['$event']]]]]}}" class="btn" style="margin-bottom:20rpx;width:auto;" bindtap="__e">{{apibut}}</button>
+    <!-- 连接服务器失败 -->
+    <block wx:if="{{!apiSuccess}}">
+      <button data-event-opts="{{[['tap',[['openpop',['$event']]]]]}}" class="btn" style="margin-bottom:20rpx;width:auto;" bindtap="hostCheck">
+        {{apiBtnText}}
+      </button>
     </block>
-    <block wx:if="{{apisucc}}">
+    <!-- 连接服务器成功，可发送信息 -->
+    <block wx:if="{{apiSuccess}}">
       <view class="inpubut">
-        <input class="dh-input" type="text" confirm-type="search" placeholder-class="my-neirong-sm" placeholder="描述您的问题" data-event-opts="{{[['confirm',[['sendMsg',['$event']]]],['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindconfirm="__e" bindinput="__e" />
-        <button class="btn " disabled="{{msgLoad}}" data-event-opts="{{[['tap',[['sendMsg',['$event']]]]]}}" bindtap="__e">{{sentext}}</button>
+        <!-- 左边菜单按钮 -->
+        <image class="menu-left" src="../../static/menu.png" mode="aspectFit"></image>
+        <!-- 信息输入框 -->
+        <input class="input-send" type="text" confirm-type="search" placeholder-class="my-neirong-sm" placeholder="描述您的问题" data-event-opts="{{[['confirm',[['sendMsg',['$event']]]],['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindconfirm="inputMsgConfirm" bindinput="inputMsg" />
+        <!-- 发送按钮 -->
+        <button class="btn-send" disabled="{{msgLoad}}" data-event-opts="{{[['tap',[['sendMsg',['$event']]]]]}}" bindtap="sendMsg">
+          {{sendBtnText}}
+        </button>
       </view>
     </block>
   </view>
-  <uni-popup class="vue-ref" vue-id="8dd740cc-1" type="center" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}">
+  <!-- 连接服务器失败，检测服务器状态窗口 -->
+  <!-- <select id="un-select"></select>  -->
+  <!-- <uni-popup id="un-select3"></uni-popup> -->
+  <uni-popup class="vue-ref" vue-id="8dd740cc-1" type="center" id="uniPopup" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}" bind:change="parentComponentFunction">
     <view class="popcls">
       <view class="uni-textarea" style="width:90%;margin:20rpx 20rpx;border:1px solid #000000;">
         <textarea style="width:100%;" placeholder-style="color:#F76260" placeholder="{{apiadj}}" data-event-opts="{{[['input',[['__set_model',['','api','$event',[]]]]]]}}" value="{{api}}" bindinput="__e"></textarea>
       </view>
       <view style="display:flex;flex-direction:row;">
-        <button style="margin:10rpx;" type="primary" data-event-opts="{{[['tap',[['apiset',['$event']]]]]}}" bindtap="__e">确认</button>
-        <button data-event-opts="{{[['tap',[['clopop',['$event']]]]]}}" style="margin:10rpx;" bindtap="__e">取消</button>
+        <button style="margin:10rpx;" type="primary" data-event-opts="{{[['tap',[['apiset',['$event']]]]]}}" bindtap="__e">
+          确认
+        </button>
+        <button data-event-opts="{{[['tap',[['clopop',['$event']]]]]}}" style="margin:10rpx;" bindtap="__e">
+          取消-
+        </button>
       </view>
     </view>
   </uni-popup>
+  <!-- <view class="container">
+  <view style="position:fixed ;top:40%;box-sizing:border-box;padding:20rpx;text-align:center;width:100%">
+    <button bindtap="selectDistrict">选择城市</button>
+  </view>
+</view> -->
+  <view class="dialog-mask " style="visibility:{{isVisible ? 'visible': 'hidden'}}" bindtap="hideMenuTap " />
+  <!-- api动画方式 -->
+  <view wx:if="{{menuType==1}} " class="state-menu " animation="{{animationData}}" style="visibility:{{isVisible ? 'visible': 'hidden'}}"></view>
+  <view class="dialog-mask " style="z-index:11;visibility:{{addressMenuIsShow ? 'visible': 'hidden'}}" bindtap="hideCitySelected" />
+  <!-- 使用动画时不能wx:if="{{city.length>0&&isVisible}}" ，不能hidden=''属性否则无动画效果 -->
+  <view class="picker-view" animation="{{animationAddressMenu}}" style="visibility:{{addressMenuIsShow ? 'visible':'hidden'}}">
+    <view style="height:10% ;width:95%;margin-top:10rpx">
+      <text catchtap="cityCancel">取消</text>
+      <text style="float: right" catchtap="cityOk">确定</text>
+    </view>
+  </view>
 </view>

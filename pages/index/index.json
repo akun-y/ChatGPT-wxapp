@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "iKnowM",
   "usingComponents": {
-    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
+    "uni-popup": "/component/uni-popup/uni-popup",
+    "select": "/component/select/select"
   }
 }

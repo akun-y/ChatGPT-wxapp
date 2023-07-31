@@ -1,0 +1,4 @@
+<!-- component/select/select.wxml -->
+<view wx:if="{{dddd}}">
+  <text>component/select/select.wxml</text>
+</view>

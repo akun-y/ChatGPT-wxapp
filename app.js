@@ -1,6 +1,6 @@
-require('./common/runtime.js')
-require('./common/vendor.js')
-require('./common/main.js')
+// require('./common/runtime.js')
+// require('./common/vendor.js')
+// require('./common/main.js')
 
 App({
   globalData: {
@@ -20,6 +20,7 @@ App({
         if(!oldId || oldId.length <12)
         {
             getApp().globalData.id = res.code
+            console.log("getApp().globalData.id:",getApp().globalData.id)
         }
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       },

@@ -5,44 +5,32 @@
   height: 100vh;
 }
 .userinfo {
-  -webkit-animation: oneshow .8s ease 1;
-  animation: oneshow .8s ease 1;
+  -webkit-animation: oneshow 0.8s ease 1;
+  animation: oneshow 0.8s ease 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding-right: 20rpx
+  padding-right: 20rpx;
 }
 
-.usermsg {
-    margin-top: 16rpx;
-  margin-left: 20rpx;
-  border-radius: 35rpx;
-}
-.usermsg text {
-  font-size: 32rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight:normal;
-  justify-self: center;
-  color: rgb(59, 46, 5);
-}
 .aiinfo {
   display: flex;
   flex-direction: row;
-  align-items:flex-start;
+  align-items: flex-start;
   margin-left: 10rpx;
   margin-top: 20rpx;
-  -webkit-animation: oneshow .8s ease 1;
-  animation: oneshow .8s ease 1;
+  -webkit-animation: oneshow 0.8s ease 1;
+  animation: oneshow 0.8s ease 1;
 }
 
 .usr-line-info {
   display: flex;
   flex-direction: row;
-  align-items:flex-start;
+  align-items: flex-start;
   margin-left: 20rpx;
   margin-top: 20rpx;
-  -webkit-animation: oneshow .8s ease 1;
-  animation: oneshow .8s ease 1
+  -webkit-animation: oneshow 0.8s ease 1;
+  animation: oneshow 0.8s ease 1;
 }
 
 .chat-img {
@@ -54,21 +42,43 @@
   justify-content: center;
   align-items: center;
 }
+.usermsg-text {
+  width: 530rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
 
-.aimsg {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-left: 1rpx;
-  padding: 20rpx 1rpx;
-}
-.aimsg text {
-  font-size: 30rpx;
+  align-items: flex-end;
+
+  font-size: 32rpx;
   font-family: PingFangSC-Medium, PingFang SC;
-  font-weight:normal;
+  font-weight: normal;
+  color: rgb(59, 46, 5);
+}
+.scroll-view {
+  width: 100%;
+  height: 93vh;
+  /* 撑满剩余高度 */
+  /* flex: 1;  */
+  /* 关键属性，否则scroll-view不生效 */
+  /* height: 0;  */
+}
+.aimsg-text {
+  width: 520rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: normal;
   justify-self: center;
   color: rgb(59, 46, 5);
 }
+
 .flex-column-center {
   display: flex;
   flex-direction: column;
@@ -77,10 +87,10 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  }
-  .flex-column-start {
-      width: auto;
-    }
+}
+.flex-column-start {
+  width: auto;
+}
 .inpubut {
   display: flex;
   flex-direction: row;
@@ -91,10 +101,9 @@
   font-size: 40rpx;
 }
 
-
 .my-neirong-sm {
   font-size: 23rpx;
-  color: #616161
+  color: #616161;
 }
 .menu-left {
   margin-left: 10rpx;
@@ -105,24 +114,33 @@
 }
 .input-send {
   width: 80%;
-  height: 75rpx;
+  height: 70rpx;
   border-radius: 10rpx;
   padding-left: 20rpx;
   margin-left: 20rpx;
   margin-right: 20rpx;
-  background-color: #cccccc
+  background-color: #cccccc;
 }
 .btn-send {
   width: 20%;
   height: 70rpx;
+  line-height: 70px;
+
   background-color: #6495ed;
   color: #fff;
-  border-radius: 10px;
+  border-radius: 10rpx;
+  border: none;
   font-size: 28rpx;
-  margin-right: 5px;
-  line-height: 30px; 
+  margin-right: 20rpx;
+
+  display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
+}
+/* 修改按钮禁止时候默认样式 */
+button[disabled] {
+  color: rgb(22, 22, 22) !important;
+  background-color: rgb(188, 188, 188) !important;
 }
 
 .popcls {
@@ -133,7 +151,7 @@
   display: flex;
   flex-direction: column;
   justify-items: center;
-  align-items: center
+  align-items: center;
 }
 /* ------------------------------- */
 
@@ -232,14 +250,13 @@
   font-size: 12pt;
   background-color: #c4245c;
   color: #fff;
-  position: fixed
+  position: fixed;
 }
-
 
 .picker-view {
   width: 100%;
   display: flex;
-  z-index:12;
+  z-index: 12;
   background-color: #fff;
   flex-direction: column;
   justify-content: center;

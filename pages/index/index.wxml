@@ -1,5 +1,10 @@
 <view class="iKnow">
-  <scroll-view style="width:100%;height: 34vh;" scroll-with-animation="{{true}}" scroll-y="true">
+  <scroll-view 
+          scroll-with-animation="{{true}}"
+          scroll-y="true"
+          class="scroll-view"
+          scroll-into-view="{{curScrollIndex}}"
+  >
     <view id="okk" scroll-with-animation="{{true}}">
       <block wx:for="{{msgList}}" wx:for-item="x" wx:for-index="i" wx:key="i">
         <view class="flex-column-start">
@@ -7,29 +12,28 @@
             <!-- 用户输入的聊天信息 -->
             <view class="userinfo">
               <view class="usr-line-info">
-                <view class="usermsg">
-                  <text style="word-break:break-all;selectable:true;user-select:true">
-                    {{x.msg}}
-                  </text>
+                <!-- 文字 -->
+                <view class="usermsg-text">
+                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
                 </view>
-                <view class="chat-img ">
+                <!-- 图标 -->
+                <view class="chat-img">
                   <image style="height:50rpx;width:50rpx;" src="../../static/avatar.png" mode="aspectFit"></image>
                 </view>
               </view>
             </view>
           </block>
+          {{console.log("---",forindex)}}
           <!-- 服务器应答信息 -->
           <block wx:if="{{!x.my}}">
             <view class="aiinfo">
+              <!-- 图标 -->
               <view class="chat-img ">
                 <image style="height:50rpx;width:50rpx;" src="../../static/openai.png" mode="aspectFit"></image>
               </view>
-              <view class="flex" style="width:530rpx;">
-                <view class="aimsg">
-                  <text style="word-break:break-all;selectable:true;user-select:true" selectable="true" user-select="true">
-                    {{x.msg}}
-                  </text>
-                </view>
+              <!-- 文字 -->
+              <view class="aimsg-text" selectable="true" user-select="true" id="aimsg-{{i}}">
+                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
               </view>
             </view>
           </block>
@@ -49,18 +53,16 @@
     <block wx:if="{{apiSuccess}}">
       <view class="inpubut">
         <!-- 左边菜单按钮 -->
-        <image class="menu-left" src="../../static/menu.png" mode="aspectFit"></image>
+        <image class="menu-left" src="../../static/menu.png" mode="aspectFit" bindtap="selectDistrict"></image>
         <!-- 信息输入框 -->
-        <input class="input-send" type="text" confirm-type="search" placeholder-class="my-neirong-sm" placeholder="描述您的问题" data-event-opts="{{[['confirm',[['sendMsg',['$event']]]],['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindconfirm="inputMsgConfirm" bindinput="inputMsg" />
+        <input class="input-send" type="text" confirm-type="search" auto-focus placeholder-class="my-neirong-sm" placeholder="描述您的问题" data-event-opts="{{[['confirm',[['sendMsg',['$event']]]],['input',[['__set_model',['','msg','$event',[]]]]]]}}" value="{{msg}}" bindconfirm="inputMsgConfirm" bindinput="inputMsg" />
         <!-- 发送按钮 -->
-        <button class="btn-send" disabled="{{msgLoad}}" data-event-opts="{{[['tap',[['sendMsg',['$event']]]]]}}" bindtap="sendMsg">
-          {{sendBtnText}}
-        </button>
+        <button class="btn-send" disabled="{{msgLoad}}" bindtap="sendMsg">{{sendBtnText}}</button>
       </view>
     </block>
   </view>
   <!-- 连接服务器失败，检测服务器状态窗口 -->
-  <!-- <select id="un-select"></select>  -->
+  <!-- <select id="un-select"></select> -->
   <!-- <uni-popup id="un-select3"></uni-popup> -->
   <uni-popup class="vue-ref" vue-id="8dd740cc-1" type="center" id="uniPopup" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}" bind:change="parentComponentFunction">
     <view class="popcls">
@@ -78,10 +80,10 @@
     </view>
   </uni-popup>
   <!-- <view class="container">
-  <view style="position:fixed ;top:40%;box-sizing:border-box;padding:20rpx;text-align:center;width:100%">
-    <button bindtap="selectDistrict">选择城市</button>
-  </view>
-</view> -->
+    <view style="position:fixed ;top:40%;box-sizing:border-box;padding:20rpx;text-align:center;width:100%">
+      <button bindtap="selectDistrict">选择城市</button>
+    </view>
+  </view> -->
   <view class="dialog-mask " style="visibility:{{isVisible ? 'visible': 'hidden'}}" bindtap="hideMenuTap " />
   <!-- api动画方式 -->
   <view wx:if="{{menuType==1}} " class="state-menu " animation="{{animationData}}" style="visibility:{{isVisible ? 'visible': 'hidden'}}"></view>

@@ -24,6 +24,7 @@ Page({
             msg: "你好呀,想问什么就问吧"
         }],
         msg: "",
+        curScrollIndex: "",
 
         msgHistory: [{ "role": "user", "content": "hello" },
         { "role": "assistant", "content": "Hello, I am iKnowM. How can I help you today?" }],
@@ -203,7 +204,7 @@ Page({
             url: this.data.apiurl,
             method: "GET",
             success: function (t) {
-                console.log("onLoad success:", t?.statusCode, t);
+                console.log("onLoad success:", t);
                 that.setData({ apiKey: t.data })
                 that.apiCheck();
                 that.setsklocal(that.data.api);
@@ -219,7 +220,7 @@ Page({
     },
     apiCheck: function () {
         var that = this;
-        this.uniPopup?.close("center")
+        //this.uniPopup.close("center")
         // var unipopup = this.this.selectComponent("#un-select")
         // console.log("unipopup:",unipopup.data)
         // unipopup.popup.close("center");
@@ -264,7 +265,7 @@ Page({
                         msgLoad: false,
                     })
                     that.setsklocal(that.data.api);
-                    that.data.uniPopup?.close("center")//.clear();
+                    // that.data.uniPopup.close("center")//.clear();
                     // that.close()
                 } else {
                     that.setData({
@@ -305,15 +306,17 @@ Page({
 
         return dataString;
     },
+    //回车事件
     inputMsgConfirm: function (e) {
-        const that = this
-        that.setData({ msg: e.detail.value })
-        console.log("inputMsgConfirm:", that.data.msg, that.data)
+        this.setData({ msg: e.detail.value })
+        this.sendMsg()
+        console.log("inputMsgConfirm:", this.data.msg, this.data)
+
     },
+    //输入文字
     inputMsg: function (e) {
-        const that = this
-        that.setData({ msg: e.detail.value })
-        console.log("inputMsg:", that.data.msg, that.data)
+        this.setData({ msg: e.detail.value })
+        //console.log("inputMsg:", this.data.msg, this.data)
     },
     sendMsg: function () {
         const that = this
@@ -329,8 +332,8 @@ Page({
         data.msgList.push({ msg: sendMessage, my: true })
         this.setData({
             sendBtnText: "请求中",
-            //msgList: data.msgList.push({ msg: sendMessage, my: true }),
-            msgLoad: true
+            msgList: data.msgList,
+            msgLoad: true,
         })
         var reqBody = {
             "conversation_id": this.getUserId(),
@@ -352,7 +355,6 @@ Page({
                 }
             }
         };
-        data.msg = "";
         console.log("send msg:", reqBody);
         wx.request({
             url: data.apiurl + "/backend-api/v2/conversation",
@@ -365,7 +367,7 @@ Page({
                     var resp = that.myFilter(resp.data);
                     // var data = resp.data;
                     console.log("resp:", resp, that.data);
-                    that.data.msgList.push({ msg: resp, my: false })
+                    const index = that.data.msgList.push({ msg: resp, my: false })
                     that.data.msgHistory.push({ "role": "user", "content": sendMessage })
                     that.data.msgHistory.push({ "role": "assistant", "content": resp })
                     that.setData({
@@ -373,6 +375,7 @@ Page({
                         sendBtnText: "发送",
                         msgList: that.data.msgList,
                         msgHistory: that.data.msgHistory,
+                        curScrollIndex: "aimsg-" + (index - 1),
                         msg: ""
                     })
                 } else {
@@ -384,5 +387,4 @@ Page({
             }
         })
     }
-
 })

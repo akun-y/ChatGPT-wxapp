@@ -2,7 +2,7 @@
 <view wx:if="{{listShow}}">
   <view class="list">
     <span class="{{item.select?'list-select':'list-item'}}"
-    wx:for="{{modelList}}" wx:key="index" id="{{index}}" bindtap='selectOne'>
+    wx:for="{{mList}}" wx:key="index" id="{{index}}" bindtap='selectOne'>
     <text class="list-text" id="{{index}}">{{item.name}}</text>
     </span>
   </view>

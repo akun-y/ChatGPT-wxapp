@@ -7,6 +7,7 @@ Component({
     listShow: true,
     selectId: 0,
     listContent: "GPT3.5. Turbo,Training data as of September 2021",
+    mList: [],
   },
   lifetimes: {
     created: function () {
@@ -15,19 +16,10 @@ Component({
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.log("attached...")
-      const json = this.triggerEvent("parentComponentFunction", { aaa: 1, bbb: 2 })
-        console.log("model json:", json)
-        console.log("model:", this.properties.modelList)
-      //   wx.request({
-      //     url: this.data.apiurl + "/user/model/" + 23432,
-      //     method: "GET",
-      //     success: function (t) {
-      //       console.log("onLoad success:", t)
-      //     },
-      //     fail: (err) => {
-      //       console.error("apiurl error:", err)
-      //     },
-      //   })
+      this.setData({ mList: this.properties.modelList })
+
+      this.triggerEvent("parentComponentFunction", { aaa: 1, bbb: 2 })
+      console.log("support model:", this.data.mList)
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
@@ -37,27 +29,35 @@ Component({
   methods: {
     // 自定义方法
     clear() {
-      console.log("调用了自定义组件内部方法")
+      console.log("调用了组件内部方法(select clear)")
     },
     getSelect() {
-      return this.properties.modelList[this.data.selectId]
+      return this.data.mList.filter((item) => {
+        return item.select
+      })[0]
+    },
+    setModelList(list) {
+      this.setData({
+        mList: list
+      })
+    },
+    getModelList() {
+      return this.data.mList
     },
     setListSelect(id) {
-      this.properties.modelList.map((item) => {
-        item.select = false
-      })
-      this.properties.modelList[id].select = true
+      this.data.mList.map((item) => { item.select = false })
+      this.data.mList[id].select = true
       this.setData({
-        modelList: this.properties.modelList,
-        listContent: this.properties.modelList[id].content,
+        mList: this.data.mList,
+        listContent: this.data.mList[id].content,
         selectId: id,
       })
+      console.log("setListSelect3 id:", id, this.data.mList)
     },
     selectOne: function (e) {
       console.log("selectOne id:", e.target.id)
       this.setListSelect(e.target.id)
-      const json = this.triggerEvent("parentComponentFunction", "sd", "sdf")
-      console.log("----->", json)
+      this.triggerEvent("parentComponentFunction", "sd", "sdf")
     },
   },
 })

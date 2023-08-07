@@ -29,34 +29,36 @@ Page({
         msgHistory: [{ "role": "user", "content": "hello" },
         { "role": "assistant", "content": "Hello, I am iKnowM. How can I help you today?" }],
         userId: null,
-        modelList:[
+        modelList: [
             {
-              name: "GPT-3.5-Turbo-16k-0613",
-              select: false,
-              value: "gpt-3.5-turbo",
-              content: "GPT3.5. Turbo,Training data as of September 2021",
+                name: "GPT-3.5-Turbo-16k-0613",
+                select: false,
+                value: "gpt-3.5-turbo-16k-0613",
+                content: "GPT3.5 Turbo,Training data as of September 2021",
             },
             {
-              name: "GPT4All-J v1.3-groovy",
-              value: "gpt4all",
-              select: false,
-              content:
-                "创意模型可用于商业用途;\
+                name: "GPT4All-J v1.3-groovy",
+                value: "gpt4all",
+                select: false,
+                content:
+                    "创意模型可用于商业用途;\
                       快速响应;\
                       创意回应;\
                       基于指令;\
                       由 Nomic AI 培训;",
-            },{
+            }, {
                 'name': 'dify.ai',
                 'select': true,
                 'value': "dify-ai",
-                'content': '-GPT3.5 Turbo,Training data as of September 2021'
+                'content': 'GPT3.5 Turbo,Training data as of September 2021'
             },
-          ]
+        ]
     },
 
     // 生命周期函数--监听页面加载
     onLoad: function (options) {
+        console.log("onLoad")
+        this.reqModelList();
         // 初始化动画变量
         var animation = wx.createAnimation({
             duration: 500,
@@ -134,13 +136,12 @@ Page({
     },
     // 生命周期函数--监听页面初次渲染完成
     onReady: function () {
+        console.log("onReady")
         this.setData({
-            userId:this.getUserId(),
+            userId: this.getUserId(),
             uniPopup: this.selectComponent('#uniPopup'),
             uniSelect: this.selectComponent('#uniSelect')
         })
-
-        this.getModelList();
     },
     // 生命周期函数--监听页面显示
     onShow: function () { },
@@ -182,18 +183,20 @@ Page({
     // 点击menu选择确定按钮
     menuOk: function (e) {
         this.startAddressAnimation(false)
-        console.log("menuOk:", this.data.uniSelect)
+        console.log("menuOk1:", this.data.uniSelect)
         this.setData({
-          uniPopup: this.selectComponent('#uniPopup'),
-          uniSelect: this.selectComponent('#uniSelect')
-      })
+            uniPopup: this.selectComponent('#uniPopup'),
+            uniSelect: this.selectComponent('#uniSelect')
+        })
         if (this.data.uniSelect) {
             const item = this.data.uniSelect.getSelect()
-            console.log("menuOk:", item)
+            const models = this.data.uniSelect.getModelList()
+            console.log("menuOk2:", item, models)
             this.setData({
-                model: item.value
+                model: item.value,
+                modelList: models
             })
-            this.hostCheck()
+            // this.hostCheck()
         }
     },
 
@@ -335,8 +338,8 @@ Page({
                 replace: 'Model-A'
             },
             {
-                find:'chatgpt',
-                replase:'iKnowGPT'
+                find: 'chatgpt',
+                replase: 'iKnowGPT'
             }
         ];
 
@@ -432,17 +435,23 @@ Page({
             }
         })
     },
-    getModelList: function () {
-        const that =  this
+    reqModelList: function () {
+        const that = this
         wx.request({
-            url: this.data.apiurl + "/user/model/"+this.getUserId(),
+            url: this.data.apiurl + "/user/model/" + this.getUserId(),
             method: "GET",
             success: function (res) {
-                console.log("getModelList success:", res);
-                if (res.statusCode===200 && res.data.length > 0) {
+                console.log("reqModelList success:", res);
+                if (res.statusCode === 200 && res.data.length > 0) {
+                    console.log("reqModelList set data:", res.data)
                     that.setData({
                         modelList: res.data
                     })
+                    const uniSelect = that.selectComponent('#uniSelect')
+                    if (uniSelect) {
+                        console.log("setModelList:", res.data)
+                        uniSelect.setModelList(res.data)
+                    }
                 }
             }
         })

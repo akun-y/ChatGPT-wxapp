@@ -154,6 +154,10 @@ Page({
     menuOk: function (e) {
         this.startAddressAnimation(false)
         console.log("menuOk:", this.data.uniSelect)
+        this.setData({
+          uniPopup: this.selectComponent('#uniPopup'),
+          uniSelect: this.selectComponent('#uniSelect')
+      })
         if (this.data.uniSelect) {
             const item = this.data.uniSelect.getSelect()
             console.log("menuOk:", item)
@@ -244,7 +248,7 @@ Page({
                 "id": "api-test",
                 "content": {
                     "conversation": [],
-                    "internet_access": true,
+                    "internet_access": false,
                     "content_type": "text",
                     "parts": [
                         {
@@ -293,14 +297,14 @@ Page({
     // 过滤并替换关键字
     myFilter: function (dataString) {
         const replaceRules = [
-            // {
-            //     find: 'openai',
-            //     replace: 'iKnowModel'
-            // },
-            // {
-            //     find: 'gpt-3',
-            //     replace: 'Model-A'
-            // }
+            {
+                find: 'openai',
+                replace: 'iKnowModel'
+            },
+            {
+                find: 'gpt-3',
+                replace: 'Model-A'
+            }
         ];
 
         for (let rule of replaceRules) {
@@ -352,7 +356,7 @@ Page({
                 "id": this.getUserId(),
                 "content": {
                     "conversation": this.data.msgHistory,
-                    "internet_access": true,
+                    "internet_access": false,
                     "content_type": "text",
                     "parts": [
                         {

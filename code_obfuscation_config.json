@@ -9,6 +9,22 @@
 		{
 			"path": "common/main.js",
 			"sub_switch": true
+		},
+		{
+			"path": "component/select/select.js",
+			"sub_switch": true
+		},
+		{
+			"path": "component/uni-popup/uni-popup.js",
+			"sub_switch": true
+		},
+		{
+			"path": "app.js",
+			"sub_switch": true
+		},
+		{
+			"path": "component/uni-transition/uni-transition.js",
+			"sub_switch": true
 		}
 	]
 }

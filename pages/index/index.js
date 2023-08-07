@@ -6,7 +6,6 @@ Page({
         //--------------------------------------
         uniPopup: null,
         uniSelect: null,
-        model: "gpt-3.5-turbo-16k-0613",
         //apiurl: "https://bridge.mfull.cn",
         //apiurl: "http://192.168.15.223:1338",
         apiurl: "http://127.0.0.1:1338",
@@ -29,6 +28,7 @@ Page({
         msgHistory: [{ "role": "user", "content": "hello" },
         { "role": "assistant", "content": "Hello, I am iKnowM. How can I help you today?" }],
         userId: null,
+        model: "dify-ai",
         modelList: [
             {
                 name: "GPT-3.5-Turbo-16k-0613",
@@ -445,7 +445,8 @@ Page({
                 if (res.statusCode === 200 && res.data.length > 0) {
                     console.log("reqModelList set data:", res.data)
                     that.setData({
-                        modelList: res.data
+                        modelList: res.data,
+                        model: res.data.filter(item => item.select)[0].value
                     })
                     const uniSelect = that.selectComponent('#uniSelect')
                     if (uniSelect) {

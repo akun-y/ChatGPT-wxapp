@@ -88,7 +88,10 @@
   <view class="menu-view" animation="{{animationMenu}}" style="visibility:{{menuIsShow ? 'visible':'hidden'}}">
     <text class="menu-title">选择大模型 ：</text>
     <view class="menu-item">
-      <select id="uniSelect"></select>
+      <select id="uniSelect" 
+      modelList="{{modelList}}"
+      bind:parentComponentFunction="parentComponentFunction">
+      </select>
       <view class="menu-btn-group">
         <button catchtap="menuCancel">取消</button>
         <button style="background-color:#6495ed;color:white" catchtap="menuOk">确定</button>

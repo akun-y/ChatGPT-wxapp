@@ -4,7 +4,7 @@
 
 App({
   globalData: {
-    id: null,
+    id: 'test-user',
   },
   onLaunch() {
     // 展示本地存储能力

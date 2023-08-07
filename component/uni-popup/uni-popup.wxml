@@ -1,5 +1,5 @@
 <block wx:if="{{showPopup}}">
-  <!-- <text>s--</text> -->
+  <!-- <text>sdfsd</text> -->
   <view class="{{['uni-popup',popupstyle,isDesktop?'fixforpc-z-index':'']}}">
     <view data-event-opts="{{[['touchstart',[['touchstart',['$event']]]]]}}" bindtouchstart="__e">
       <block wx:if="{{maskShow}}">

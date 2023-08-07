@@ -8,7 +8,8 @@ Page({
         uniSelect: null,
         model: "gpt-3.5-turbo-16k-0613",
         //apiurl: "https://bridge.mfull.cn",
-        apiurl: "http://192.168.15.223:1338",
+        //apiurl: "http://192.168.15.223:1338",
+        apiurl: "http://127.0.0.1:1338",
         apiSuccess: false,//api服务是否正常
         apiBtnText: "需要先进行API配置才能使用",
         sendBtnText: "先配置api",
@@ -28,6 +29,30 @@ Page({
         msgHistory: [{ "role": "user", "content": "hello" },
         { "role": "assistant", "content": "Hello, I am iKnowM. How can I help you today?" }],
         userId: null,
+        modelList:[
+            {
+              name: "GPT-3.5-Turbo-16k-0613",
+              select: false,
+              value: "gpt-3.5-turbo",
+              content: "GPT3.5. Turbo,Training data as of September 2021",
+            },
+            {
+              name: "GPT4All-J v1.3-groovy",
+              value: "gpt4all",
+              select: false,
+              content:
+                "创意模型可用于商业用途;\
+                      快速响应;\
+                      创意回应;\
+                      基于指令;\
+                      由 Nomic AI 培训;",
+            },{
+                'name': 'dify.ai',
+                'select': true,
+                'value': "dify-ai",
+                'content': '-GPT3.5 Turbo,Training data as of September 2021'
+            },
+          ]
     },
 
     // 生命周期函数--监听页面加载
@@ -105,13 +130,17 @@ Page({
         // wx.navigateTo({
         //   url : ' '
         // })
+        return '{a:b}';
     },
     // 生命周期函数--监听页面初次渲染完成
     onReady: function () {
         this.setData({
+            userId:this.getUserId(),
             uniPopup: this.selectComponent('#uniPopup'),
             uniSelect: this.selectComponent('#uniSelect')
         })
+
+        this.getModelList();
     },
     // 生命周期函数--监听页面显示
     onShow: function () { },
@@ -304,13 +333,17 @@ Page({
             {
                 find: 'gpt-3',
                 replace: 'Model-A'
+            },
+            {
+                find:'chatgpt',
+                replase:'iKnowGPT'
             }
         ];
 
         for (let rule of replaceRules) {
             let find = rule.find;
             let replace = rule.replace;
-            // 使用正则表达式做全局替换
+            // 使用正则表达式做全局替换，忽略大小写
             let reg = new RegExp(find, 'gi');
             dataString = dataString.replace(reg, replace);
         }
@@ -394,6 +427,21 @@ Page({
                     that.setData({
                         apiBtnText: "连接服务器失败",
                         apiSuccess: false
+                    })
+                }
+            }
+        })
+    },
+    getModelList: function () {
+        const that =  this
+        wx.request({
+            url: this.data.apiurl + "/user/model/"+this.getUserId(),
+            method: "GET",
+            success: function (res) {
+                console.log("getModelList success:", res);
+                if (res.statusCode===200 && res.data.length > 0) {
+                    that.setData({
+                        modelList: res.data
                     })
                 }
             }

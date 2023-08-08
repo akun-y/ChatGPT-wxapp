@@ -23,7 +23,7 @@ Page({
         msg: "",
         curScrollIndex: "",
 
-        msgHistory: [{ "role": "user", "content": "hello" },
+        msgHistory: [{ "role": "system", "content": "your name is iKnowM" },
         { "role": "assistant", "content": "Hello, I am iKnowM. How can I help you today?" }],
         userId: null,
         model: "dify-ai",
@@ -338,20 +338,33 @@ Page({
         })
     },
     // 过滤并替换关键字
-    myFilter: function (dataString) {
+    sendMsgFilter: function (dataString) {
         const replaceRules = [
-            {
-                find: 'openai',
-                replace: 'iKnowModel'
-            },
-            {
-                find: 'gpt-3',
-                replace: 'Model-A'
-            },
-            {
-                find: 'chatgpt',
-                replase: 'iKnowGPT'
-            }
+            { find: 'openai', replace: 'OChatAI' },
+            { find: 'gpt-3', replace: 'Model-A' },
+            { find: 'chatgpt', replace: 'chatAIII..' },
+            { find: 'GPT', replace: 'CCCCC.' }
+        ];
+
+        for (let rule of replaceRules) {
+            let find = rule.find;
+            let replace = rule.replace;
+            // 使用正则表达式做全局替换，忽略大小写
+            let reg = new RegExp(find, 'gi');
+            dataString = dataString.replace(reg, replace);
+        }
+
+        return dataString;
+    },
+    // 过滤并替换关键字
+    respFilter: function (dataString) {
+        const replaceRules = [
+            { find: 'openai', replace: 'iKnowModel' },
+            { find: 'gpt-3', replace: 'Model-A' },
+            { find: 'chatgpt', replace: 'iKnowGPT' },
+            { find: 'CCCCC.', replace: 'GPT' },
+            { find: 'chatAIII..', replace: 'ChatGPT' },
+            
         ];
 
         for (let rule of replaceRules) {
@@ -378,16 +391,17 @@ Page({
     },
     sendMsg: function () {
         const that = this
-        const data = that.data;
+        const data = this.data;
         console.log("sendMsg:", data)
 
         if ("" == data.msg) return 0;
         if (data.msgLoad) return this.$u.toast("请先配置api再进行使用"), 0;
 
 
-        const sendMessage = data.msg
+        const sendMessage = this.sendMsgFilter(data.msg)
+        console.log("sendMsg:", sendMessage)
 
-        data.msgList.push({ msg: sendMessage, my: true })
+        data.msgList.push({ msg: data.msg, my: true })
         this.setData({
             sendBtnText: "请求中",
             msgList: data.msgList,
@@ -423,7 +437,7 @@ Page({
             success: function (resp) {
                 if (200 == resp.statusCode) {
                     console.log("resp----:", resp);
-                    var resp = that.myFilter(resp.data);
+                    var resp = that.respFilter(resp.data);
                     // var data = resp.data;
                     console.log("resp:", resp, that.data);
                     const index = that.data.msgList.push({ msg: resp, my: false })
@@ -455,7 +469,7 @@ Page({
                 console.log("reqModelList success:", res);
                 if (res.statusCode === 200 && res.data?.length > 0) {
                     models = JSON.parse(res.data)
-                    console.log("reqModelList set data:",models)
+                    console.log("reqModelList set data:", models)
 
                     that.setData({
                         modelList: res.data,

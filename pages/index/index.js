@@ -6,9 +6,7 @@ Page({
         //--------------------------------------
         uniPopup: null,
         uniSelect: null,
-        //apiurl: "https://bridge.mfull.cn",
-        //apiurl: "http://192.168.15.223:1338",
-        apiurl: "http://127.0.0.1:1338",
+        apiurl: getApp().globalData.apiurl,
         apiSuccess: false,//api服务是否正常
         apiBtnText: "需要先进行API配置才能使用",
         sendBtnText: "先配置api",
@@ -225,7 +223,7 @@ Page({
         let id = this.data.userId
         if (!id || id.length < 12) {
             this.setData({
-                userId: getApp().globalData.id
+                userId: getApp().globalData.openid
             })
             id = this.data.userId
         }

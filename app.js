@@ -4,7 +4,10 @@
 
 App({
   globalData: {
-    id: 'test-user',
+    openid: 'test-user',
+    //apiurl: "https://bridge.mfull.cn",
+    //apiurl: "http://192.168.15.223:1338",
+    apiurl: "http://127.0.0.1:1338",
   },
   onLaunch() {
     // 展示本地存储能力
@@ -15,14 +18,17 @@ App({
     // 登录
     wx.login({
       success: res => {
-        console.log("login----------",res)
-        const oldId = getApp().globalData.id
-        if(!oldId || oldId.length <12)
-        {
-            getApp().globalData.id = res.code
-            console.log("getApp().globalData.id:",getApp().globalData.id)
-        }
+        console.log("login----------", res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: getApp().globalData.apiurl + '/user/wx/login',
+          method: "POST",
+          data: { code: res.code },
+          success: function (response) {
+            console.log("微信登录成功openid:", response.data.openid);
+            getApp().globalData.openid = response.data.openid
+          }
+        });
       },
     })
   },

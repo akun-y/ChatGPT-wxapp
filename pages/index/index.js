@@ -321,7 +321,7 @@ Page({
                     // that.close()
                 } else {
                     that.setData({
-                        apiBtnText: "API请求失败,请检查apikey后重试",
+                        apiBtnText: "API请求失败,请检查授权后重试",
                         apiSuccess: false
                     })
                     console.error("连接API请求失败...")
@@ -329,7 +329,7 @@ Page({
                 }
             }, fail: err => {
                 that.setData({
-                    apiBtnText: "连接失败,请检查apikey后重试",
+                    apiBtnText: "连接失败,请检查网络后重试",
                     apiSuccess: false
                 })
                 console.error("连接服务器失败...")
@@ -438,8 +438,6 @@ Page({
                 if (200 == resp.statusCode) {
                     console.log("resp----:", resp);
                     var resp = that.respFilter(resp.data);
-                    // var data = resp.data;
-                    console.log("resp:", resp, that.data);
                     const index = that.data.msgList.push({ msg: resp, my: false })
                     that.data.msgHistory.push({ "role": "user", "content": sendMessage })
                     that.data.msgHistory.push({ "role": "assistant", "content": resp })
@@ -468,7 +466,7 @@ Page({
             success: function (res) {
                 console.log("reqModelList success:", res);
                 if (res.statusCode === 200 && res.data?.length > 0) {
-                    models = JSON.parse(res.data)
+                    models = res.data
                     console.log("reqModelList set data:", models)
 
                     that.setData({

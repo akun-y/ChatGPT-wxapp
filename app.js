@@ -4,7 +4,7 @@
 
 App({
   globalData: {
-    openid: 'test-user',
+    openid:wx.getStorageSync("openid"),
     //apiurl: "https://bridge.mfull.cn",
     //apiurl: "http://192.168.15.223:1338",
     apiurl: "http://127.0.0.1:1338",
@@ -26,7 +26,11 @@ App({
           data: { code: res.code },
           success: function (response) {
             console.log("微信登录成功openid:", response.data.openid);
-            getApp().globalData.openid = response.data.openid
+              getApp().globalData.openid = response.data.openid
+              wx.setStorage({
+                key: "openid",
+                data: response.data.openid
+              })
           }
         });
       },

@@ -32,18 +32,13 @@ Page({
                 name: "GPT-3.5-Turbo-16k-0613",
                 select: false,
                 value: "gpt-3.5-turbo-16k-0613",
-                content: "GPT3.5 Turbo,Training data as of September 2021",
-            },
-            {
+                content: "GPT3.5 Turbo,Training data as of September 2021"
+            }, {
                 name: "GPT4All-J v1.3-groovy",
                 value: "gpt4all",
                 select: false,
                 content:
-                    "创意模型可用于商业用途;\
-                      快速响应;\
-                      创意回应;\
-                      基于指令;\
-                      由 Nomic AI 培训;",
+                    "创意模型可用于商业用途;快速响应;创意回应;基于指令;由 Nomic AI 培训;"
             }, {
                 'name': 'dify.ai',
                 'select': true,
@@ -194,10 +189,28 @@ Page({
                 model: item.value,
                 modelList: models
             })
+            this.pushMyModelList(models)
             // this.hostCheck()
+
         }
     },
-
+    pushMyModelList: function (models) {
+        console.log("pushMyModelList:", models)
+        wx.request({
+            url: this.data.apiurl + "/user/model/" + this.getUserId(),
+            method: "POST",
+            data: {
+                userId: getApp().globalData.openid,
+                models
+            },
+            success: function (res) {
+                console.log("pushMyModelList success:", res);
+                if (res.statusCode === 200 && res.data.length > 0) {
+                    console.log("pushMyModelList set data:", res)
+                }
+            }
+        })
+    },
     hideMenuMask: function (e) {
         this.startAddressAnimation(false)
     },
@@ -440,19 +453,22 @@ Page({
             method: "GET",
             success: function (res) {
                 console.log("reqModelList success:", res);
-                if (res.statusCode === 200 && res.data.length > 0) {
-                    console.log("reqModelList set data:", res.data)
+                if (res.statusCode === 200 && res.data?.length > 0) {
+                    models = JSON.parse(res.data)
+                    console.log("reqModelList set data:",models)
+
                     that.setData({
                         modelList: res.data,
-                        model: res.data.filter(item => item.select)[0].value
+                        model: models.filter(item => item.select)[0].value
                     })
                     const uniSelect = that.selectComponent('#uniSelect')
                     if (uniSelect) {
-                        console.log("setModelList:", res.data)
-                        uniSelect.setModelList(res.data)
+                        console.log("setModelList:", models)
+                        uniSelect.setModelList(models)
                     }
                 }
             }
         })
     }
+
 })

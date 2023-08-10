@@ -27,7 +27,7 @@ Page({
     userId: null,
     model: "gpt-3.5-turbo-16k-0613",
     modelList: [
-       {
+      {
         name: "文心一言",
         select: true,
         value: "baidu-wenxin",
@@ -130,10 +130,12 @@ Page({
   // 生命周期函数--监听页面初次渲染完成
   onReady: function () {
     console.log("onReady")
+    const uniSelect = this.selectComponent('#uniSelect')
+    if (uniSelect) uniSelect.setModelList(this.data.models)
     this.setData({
       userId: this.getUserId(),
       uniPopup: this.selectComponent('#uniPopup'),
-      uniSelect: this.selectComponent('#uniSelect')
+      uniSelect
     })
   },
   // 生命周期函数--监听页面显示
@@ -337,47 +339,41 @@ Page({
       }
     })
   },
-  // 过滤并替换关键字
-  sendMsgFilter: function (dataString) {
-    const replaceRules = [
-      { find: 'openai', replace: 'OoooIII...' },
-      { find: 'gpt-3', replace: 'Model-A' },
-      { find: 'chatgpt', replace: 'sicccccAIII..' },
-      { find: 'GPT', replace: 'CCCCC.' }
-    ];
-
-    for (let rule of replaceRules) {
+  //根据指定格式的rule替换文字
+  replaceRules: function (str, rules) {
+    console.log("---",str)
+    for (let rule of rules) {
       let find = rule.find;
       let replace = rule.replace;
       // 使用正则表达式做全局替换，忽略大小写
       let reg = new RegExp(find, 'gi');
-      dataString = dataString.replace(reg, replace);
+      str = str.replace(reg, replace);
     }
-
-    return dataString;
+    return str
+  },
+  // 过滤并替换关键字
+  sendMsgFilter: function (dataString) {
+    const rules = [
+      // { find: 'openai', replace: 'OoooIII...' },
+      // { find: 'gpt-3', replace: 'Model-A' },
+      // { find: 'chatgpt', replace: 'sicccccAIII..' },
+      // { find: 'GPT', replace: 'CCCCC.' }
+    ];
+    return this.replaceRules(dataString, rules)
   },
   // 过滤并替换关键字
   respFilter: function (dataString) {
-    const replaceRules = [
-      { find: 'claude', replace: 'iKnow2' },
-      { find: 'openai', replace: 'iKnowModel' },
-      { find: 'gpt-3', replace: 'Model-A' },
-      { find: 'chatgpt', replace: 'iKnowGPT' },
-      { find: 'CCCCC.', replace: 'GPT' },
-      { find: 'sicccccAIII..', replace: 'ChatGPT' },
-      { find: 'OoooIII...', replace: 'OpenAI' },
-      { find: 'SiGPTIII', replace: 'ChatGPT' },
+    const rules = [
+      // { find: 'claude', replace: 'iKnow2' },
+      // { find: 'openai', replace: 'iKnowModel' },
+      // { find: 'gpt-3', replace: 'Model-A' },
+      // { find: 'chatgpt', replace: 'iKnowGPT' },
+      // { find: 'CCCCC.', replace: 'GPT' },
+      // { find: 'sicccccAIII..', replace: 'ChatGPT' },
+      // { find: 'OoooIII...', replace: 'OpenAI' },
+      // { find: 'SiGPTIII', replace: 'ChatGPT' },
     ];
-
-    for (let rule of replaceRules) {
-      let find = rule.find;
-      let replace = rule.replace;
-      // 使用正则表达式做全局替换，忽略大小写
-      let reg = new RegExp(find, 'gi');
-      dataString = dataString.replace(reg, replace);
-    }
-
-    return dataString;
+    return  this.replaceRules(dataString, rules)
   },
   //回车事件
   inputMsgConfirm: function (e) {

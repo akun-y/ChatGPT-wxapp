@@ -5,9 +5,9 @@
 App({
   globalData: {
     openid:wx.getStorageSync("openid"),
-    apiurl: "https://bridge.mfull.cn",
+    //apiurl: "https://bridge.mfull.cn",
     //apiurl: "http://192.168.15.223:1338",
-    //apiurl: "http://127.0.0.1:1338",
+    apiurl: "http://127.0.0.1:1338",
   },
   onLaunch() {
     // 展示本地存储能力

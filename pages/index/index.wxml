@@ -9,7 +9,7 @@
               <view class="usr-line-info">
                 <!-- 文字 -->
                 <view class="usermsg-text">
-                  <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}
+                  <text selectable="true" style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}
                   </text>
                 </view>
                 <!-- 图标 -->
@@ -29,7 +29,7 @@
               </view>
               <!-- 文字 -->
               <view class="aimsg-text" selectable="true" user-select="true" id="aimsg-{{i}}">
-                <text style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
+                <text selectable="true" style="word-break:break-all;selectable:true;user-select:true">{{x.msg}}</text>
               </view>
             </view>
           </block>
